@@ -1,0 +1,231 @@
+
+import javax.swing.*;
+import java.sql.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.table.*;
+
+public class FrameArticulos extends FrameCategorias { // Herencia de la clase FrameCategorias (clase padre)
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    Connection con; // Variable de SQL Server para la conexión a la base de datos
+    private JButton btnBuscarPrecio; // Variable de JButton, además de los heredados
+    private JTextField txtDescripcion, txtCantidad, txtPrecioUnidad; // Variables de JTextField, ademas de los heredados
+    private JTable tablaSQLclientes; // Agrego una tabla para mostrar los datos de la SQL Table
+
+    public FrameArticulos() {
+        // Llama al constructor de la clase padre (FrameCategorias)
+        super();
+        setResizable(false); // No permíte que se redimensione la ventana
+        setTitle("Menu de Articulos : Kei Sushi"); // Titulo del frame
+        setBounds(100, 100, 700, 560); // Tamaño de la ventana
+        Container c; // Variable de contenedor
+        c = getContentPane(); // Asigna el valor del contenedor
+
+        // Ejecuta la conexión a la base de datos
+        try {
+            String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=POO-Integradora;user=amaral;password=amaral;encrypt=false"; // Conexión a la base de datos
+            con = DriverManager.getConnection(connectionUrl);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al conectarse a la BD: " + e.toString()); // Mensaje de error en conexión
+        }
+        
+        // Creo nuevos componentes de interfaz de usuario
+        btnBuscarPrecio = new JButton("Buscar por precio");
+        btnBuscarPrecio.setFont(new Font("Poppins", Font.PLAIN, 12));
+        btnBuscarPrecio.addActionListener(this);
+
+        // Creo componentes de la interfaz de usuario
+        JLabel lblDescripcion = new JLabel(" Descripcion");
+        lblDescripcion.setFont(new Font("Poppins", Font.PLAIN, 12));
+        JLabel lblCantidad = new JLabel(" Cantidad");
+        lblCantidad.setFont(new Font("Poppins", Font.PLAIN, 12));
+        JLabel lblPrecioUnidad = new JLabel(" Precio por unidad");
+        lblPrecioUnidad.setFont(new Font("Poppins", Font.PLAIN, 12));
+        JLabel lblRelleno = new JLabel("");
+        lblPrecioUnidad.setFont(new Font("Poppins", Font.PLAIN, 12));
+
+        
+        txtDescripcion = new JTextField();
+        txtCantidad = new JTextField();
+        txtPrecioUnidad = new JTextField();
+
+        // Agrega los nuevos componentes al panel correspondiente
+        JPanel panelBotones = (JPanel) getContentPane().getComponent(1);
+        panelBotones.add(btnBuscarPrecio);
+
+        // Agrego los nuevos componentes al panel correspondiente
+        JPanel panelSuperior = (JPanel) getContentPane().getComponent(0);
+        panelSuperior.add(lblDescripcion);
+        panelSuperior.add(txtDescripcion);
+        panelSuperior.add(lblCantidad);
+        panelSuperior.add(txtCantidad);
+        panelSuperior.add(lblPrecioUnidad);
+        panelSuperior.add(txtPrecioUnidad);
+        panelSuperior.add(lblRelleno);
+
+        // Agrego una JTable al formulario para ver como actua con SQL Server
+        DefaultTableModel modeloTabla = new DefaultTableModel(); // Instancia de tipo modelo de una tabla
+        tablaSQLclientes = new JTable(modeloTabla);
+        modeloTabla.addColumn("ID"); // Columnas que tendrá la tabla del frame (no necesariamente iguales a la tabla de SQL en el sentido de ortografía o reglsas de escritura)
+        modeloTabla.addColumn("Nombre"); // Ejemplo. Si en SQL la tabla tiene una columna llamada PrecioUnidad aquí en esta tabla lo pongo con un conector y con espacios, cosa que
+        modeloTabla.addColumn("Descripcion"); // en SQL no es posible
+        modeloTabla.addColumn("Cantidad");
+        modeloTabla.addColumn("Precio por unidad");
+        JScrollPane scrollPane = new JScrollPane(tablaSQLclientes); // Un JScrollPane por si se llenan las tablas en la dimensión del frame y poder hacer un scrollsito guapo
+        c.add(scrollPane, BorderLayout.CENTER);
+
+        /*
+         * Agregar el evento WindowOpened a la 
+         * ventana para que la muestre cuando abra 
+         * el formulario y siempre este cargada
+         */
+        addWindowListener(new WindowAdapter() {
+            public void windowOpened(WindowEvent e) {
+            	consultarTablaArticulos(); // Obtener y mostrar los datos al abrir la ventana (actuales a los del SQL)
+            }
+        });
+    }
+    
+    /*
+     * Sobrecarga del método de consultar la tabla
+     */
+    // Método sobrecargado para consultar la tabla de clientes sin parámetros
+    private void consultarTablaArticulos() { // Método sin párametros
+        try {
+            String SQL = "SELECT * FROM tabla_articulos"; // Defino esta var. que contiene la consulta SQL que obtiene toda la tabla.
+            Statement stmt = con.createStatement(); // Creo un objeto Statement utilizando la conexión con. Lo utilizo para ejecutar consultas SQL en la base de datos.
+            ResultSet rs = stmt.executeQuery(SQL); // Se ejecuta la consulta SQL utilizando el objeto y se guarda en "rs". 
+            									   // El objeto ResultSet contiene los registros devueltos por la consulta y 
+            									   // proporciona métodos para recorrer y acceder a los datos de esos registros.
+
+            DefaultTableModel model = (DefaultTableModel) tablaSQLclientes.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                String idEmpleado = rs.getString("ID");
+                String nombre = rs.getString("Nombre");
+                String descripcion = rs.getString("Descripcion");
+                String cantidad = rs.getString("Cantidad");
+                String precioUnidad = rs.getString("PrecioUnidad");
+
+                model.addRow(new Object[] { idEmpleado, nombre, descripcion, cantidad, precioUnidad});
+            }
+
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectarse con la BD: " + ex.toString());
+        }
+    }
+
+    // Método sobrecargado para consultar la tabla de articulos con un parámetro de búsqueda
+    private void consultarTablaArticulos(String PrecioUnidad) { // Parámetro de búsqueda por precio por unidad
+        try {
+            String SQL = "SELECT * FROM tabla_articulos WHERE PrecioUnidad LIKE '%" + PrecioUnidad + "%'";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            DefaultTableModel model = (DefaultTableModel) tablaSQLclientes.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                String idEmpleado = rs.getString("ID");
+                String nombre = rs.getString("Nombre");
+                String descripcion = rs.getString("Descripcion");
+                String cantidad = rs.getString("Cantidad");
+                String precioUnidad = rs.getString("PrecioUnidad");
+
+                model.addRow(new Object[] { idEmpleado, nombre, descripcion, cantidad, precioUnidad});
+            }
+
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectarse con la bd: " + ex.toString());
+        }
+    }
+    
+    // Sobrescribe el método actionPerformed para agregar funcionalidad a los botones
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnAgregar) {
+            try {
+            	String strSQL = "INSERT INTO tabla_articulos (ID,Nombre,Descripcion,Cantidad,PrecioUnidad) VALUES ('"
+                        + txtClave.getText() + "','" + txtNombre.getText() + "','" + txtDescripcion.getText() + "','"
+                        + txtCantidad.getText() + "','" + txtPrecioUnidad.getText() + "') ";
+            	Statement stmt = con.createStatement();
+            	int rowsAffected = stmt.executeUpdate(strSQL);
+            	JOptionPane.showMessageDialog(null, rowsAffected + " rows affected");
+
+                // Actualizar la tabla después de agregar una nueva columna
+                consultarTablaArticulos();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al conectarse con la bd: " + ex.toString());
+            }
+        }
+        if (e.getSource() == btnModificar) {
+            try {
+                String strSQL = "UPDATE tabla_articulos SET Nombre = '" + txtNombre.getText() + "', Descripcion = '"
+                        + txtDescripcion.getText() + "', Cantidad = '" + txtCantidad.getText() + 
+                        "', PrecioUnidad = '" + txtPrecioUnidad.getText() + "'where ID = '" + txtClave.getText() + "'";
+                Statement stmt = con.createStatement();
+                int rowsEffected = stmt.executeUpdate(strSQL);
+                JOptionPane.showMessageDialog(null, rowsEffected + " rows affected");
+
+                // Actualizar la tabla después de modificar un cliente
+                consultarTablaArticulos();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al conectarse con la bd: " + ex.toString());
+            }
+        }
+        if (e.getSource() == btnBorrar) {
+            try {
+                String strSQL = "DELETE FROM tabla_articulos WHERE ID = '" + txtClave.getText() + "'";
+                Statement stmt = con.createStatement();
+                int rowsEffected = stmt.executeUpdate(strSQL);
+                JOptionPane.showMessageDialog(null, rowsEffected + " rows affected");
+
+                // Actualizar la tabla después de borrar un cliente
+                consultarTablaArticulos();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al conectarse con la bd: " + ex.toString());
+            }
+        }
+        if (e.getSource() == btnConsultar) {
+            try {
+                String nombreBuscador = txtNombre.getText();
+                String SQL = "SELECT * FROM tabla_articulos WHERE Nombre LIKE '%" + nombreBuscador + "%'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL);
+
+                DefaultTableModel model = (DefaultTableModel) tablaSQLclientes.getModel();
+                model.setRowCount(0);
+
+                while (rs.next()) {
+                    String idEmpleado = rs.getString("ID");
+                    String nombre = rs.getString("Nombre");
+                    String descripcion = rs.getString("Descripcion");
+                    String cantidad = rs.getString("Cantidad");
+                    String precioUnidad = rs.getString("PrecioUnidad");
+
+                    model.addRow(new Object[] { idEmpleado, nombre, descripcion, cantidad, precioUnidad});
+                }
+
+                if (model.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron resultados.");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al conectarse con la bd: " + ex.toString());
+            }
+        }
+        if (e.getSource() == btnBuscarPrecio) {
+            String precioUnidad = txtPrecioUnidad.getText();
+            consultarTablaArticulos(precioUnidad);
+        }
+    }
+}

@@ -1,0 +1,79 @@
+package com.may.trash;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TrashExamples extends JFrame implements ActionListener {
+    private JTextField[] textFields;
+    private JScrollPane scrollPane;
+    private JPanel panel;
+    private JLabel label;
+    private JTextField dimensionField;
+    private JButton createButton;
+
+    public TrashExamples() {
+        super("Ejemplo de JScrollPane con JTextField");
+
+        // Crear un panel para el JScrollPane con un layout FlowLayout
+        panel = new JPanel(new FlowLayout());
+
+        // Crear un JLabel y un JTextField para la dimensión del arreglo
+        label = new JLabel("Dimensión:");
+        dimensionField = new JTextField(5);
+
+        // Crear un botón para crear el arreglo de JTextField y el JScrollPane
+        createButton = new JButton("Crear");
+        createButton.addActionListener(this);
+
+        // Agregar el JLabel, JTextField y el botón al panel
+        panel.add(label);
+        panel.add(dimensionField);
+        panel.add(createButton);
+
+        // Crear un JScrollPane y añadir el panel como su vista
+        scrollPane = new JScrollPane(panel);
+
+        // Configurar la posición y tamaño del JScrollPane
+        scrollPane.setBounds(50, 50, 200, 150);
+
+        // Añadir el JScrollPane al JFrame
+        add(scrollPane);
+
+        setSize(300, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        // Obtener la dimensión del arreglo ingresada por el usuario
+        int dimension = Integer.parseInt(dimensionField.getText());
+
+        // Inicializar el array de JTextField con la dimensión elegida por el usuario
+        textFields = new JTextField[dimension];
+
+        // Crear los objetos JTextField y añadirlos al panel
+        for (int i = 0; i < textFields.length; i++) {
+            textFields[i] = new JTextField(20);
+            panel.add(textFields[i]); // Añadir al panel
+        }
+
+        // Configurar el JScrollPane para mostrar el contenido en la parte inferior
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
+
+        // Redibujar el panel
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
+}

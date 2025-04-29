@@ -1,0 +1,55 @@
+package inv_operaciones;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.BorderLayout;
+
+public class MetodoGrafico2 {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MetodoGrafico2 window = new MetodoGrafico2();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public MetodoGrafico2() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JLabel desc1 = new JLabel("Este programa solicita al usuario que objetivo ");
+		desc1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		frame.getContentPane().add(desc1);
+		
+		JLabel lblMtodoGrficoV = new JLabel("Método Gráfico v0.0.1");
+		lblMtodoGrficoV.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblMtodoGrficoV.setEnabled(false);
+		frame.getContentPane().add(lblMtodoGrficoV);
+	}
+}

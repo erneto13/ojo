@@ -1,0 +1,112 @@
+package redes;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+
+public class AppSubneteo extends JFrame {
+
+    private JPanel contentPane;
+    private JTextField txtIpAddress;
+    private JLabel lblIpAddress;
+    private JLabel lblIpClass;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    AppSubneteo frame = new AppSubneteo();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public AppSubneteo() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblEnterIpAddress = new JLabel("Ingrese la dirección IP:");
+        lblEnterIpAddress.setFont(new Font("Poppins", Font.PLAIN, 12));
+        lblEnterIpAddress.setBounds(10, 27, 143, 14);
+        contentPane.add(lblEnterIpAddress);
+
+        txtIpAddress = new JTextField();
+        txtIpAddress.setBounds(145, 24, 155, 20);
+        contentPane.add(txtIpAddress);
+        txtIpAddress.setColumns(10);
+
+        JButton btnDetectIpClass = new JButton("");
+        btnDetectIpClass.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Downloads\\lupa.png"));
+        btnDetectIpClass.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener la dirección IP ingresada por el usuario
+                String ipAddress = txtIpAddress.getText();
+
+                // Mostrar la dirección IP en el JLabel correspondiente
+                lblIpAddress.setText("Dirección IP: " + ipAddress);
+
+                // Detectar la clase de la dirección IP
+                String ipClass = detectIpClass(ipAddress);
+
+                // Mostrar la clase de la dirección IP en el JLabel correspondiente
+                lblIpClass.setText("Clase de IP: " + ipClass);
+            }
+        });
+        btnDetectIpClass.setBounds(308, 12, 32, 32);
+        contentPane.add(btnDetectIpClass);
+
+        lblIpAddress = new JLabel("Dirección IP: ");
+        lblIpAddress.setBounds(10, 120, 408, 14);
+        contentPane.add(lblIpAddress);
+
+        lblIpClass = new JLabel("Clase de IP: ");
+        lblIpClass.setBounds(10, 145, 408, 14);
+        contentPane.add(lblIpClass);
+    }
+
+    /**
+     * Detecta la clase de una dirección IP dada.
+     */
+    private String detectIpClass(String ipAddress) {
+        String[] octets = ipAddress.split("\\."); // dividimos la dirección IP en sus octetos
+
+        int firstOctet =
+        		
+        	    Integer.parseInt(octets[0]); // obtenemos el primer octeto como un entero
+
+        if (firstOctet >= 1 && firstOctet <= 126) {
+            return "Clase A";
+        } else if (firstOctet >= 128 && firstOctet <= 191) {
+            return "Clase B";
+        } else if (firstOctet >= 192 && firstOctet <= 223) {
+            return "Clase C";
+        } else if (firstOctet >= 224 && firstOctet <= 239) {
+            return "Clase D";
+        } else if (firstOctet >= 240 && firstOctet <= 255) {
+            return "Clase E";
+        } else {
+            return "Dirección IP no válida";
+        }
+    }
+}

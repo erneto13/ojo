@@ -1,0 +1,2 @@
+        panelSuperior.add(lblSubtotal);
+        panelSuperior.add(txtSubtotal);

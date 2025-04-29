@@ -1,0 +1,78 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
+public class PantallaLogin {
+
+	private JFrame frame;
+	private JTextField textField;
+	private JPasswordField passwordField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PantallaLogin window = new PantallaLogin();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public PantallaLogin() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 231, 211);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("INICIA SESIÓN");
+		lblNewLabel.setForeground(new Color(255, 215, 0));
+		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 16));
+		lblNewLabel.setBounds(10, 11, 121, 14);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setForeground(new Color(0, 0, 0));
+		lblUsuario.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblUsuario.setBounds(10, 36, 60, 14);
+		frame.getContentPane().add(lblUsuario);
+		
+		textField = new JTextField();
+		textField.setBounds(10, 54, 171, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblContrasea = new JLabel("Contraseña");
+		lblContrasea.setForeground(Color.BLACK);
+		lblContrasea.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblContrasea.setBounds(10, 85, 86, 14);
+		frame.getContentPane().add(lblContrasea);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(10, 110, 171, 20);
+		frame.getContentPane().add(passwordField);
+	}
+}

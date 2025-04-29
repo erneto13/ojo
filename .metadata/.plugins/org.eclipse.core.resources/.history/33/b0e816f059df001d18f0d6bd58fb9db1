@@ -1,0 +1,128 @@
+package inv_operaciones;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JButton;
+
+public class MetodoGrafico2 {
+
+	private JFrame frame;
+	private JTextField txtRestricciones;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MetodoGrafico2 window = new MetodoGrafico2();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public MetodoGrafico2() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 750, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblDesc = new JLabel("Este programa solicita al usuario que objetivo ");
+		lblDesc.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblDesc.setBounds(10, 33, 342, 31);
+		frame.getContentPane().add(lblDesc);
+		
+		JLabel lblTitulo = new JLabel("Método Gráfico v0.0.2");
+		lblTitulo.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblTitulo.setEnabled(false);
+		lblTitulo.setBounds(10, 11, 161, 22);
+		frame.getContentPane().add(lblTitulo);
+		
+		JLabel lblDesc2 = new JLabel("quiere realizar y mostrará el gráfico del objetivo solicitado.");
+		lblDesc2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblDesc2.setBounds(10, 50, 413, 31);
+		frame.getContentPane().add(lblDesc2);
+		
+		JLabel lblObjetivo = new JLabel("Objetivo:");
+		lblObjetivo.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblObjetivo.setEnabled(false);
+		lblObjetivo.setBounds(20, 88, 109, 31);
+		frame.getContentPane().add(lblObjetivo);
+		
+		JRadioButton rbtnMinimizar = new JRadioButton("Minimizar");
+		rbtnMinimizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMinimizar.setBounds(20, 112, 109, 23);
+		frame.getContentPane().add(rbtnMinimizar);
+		
+		JRadioButton rbtnMaximizar = new JRadioButton("Maximizar");
+		rbtnMaximizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMaximizar.setBounds(20, 138, 109, 23);
+		frame.getContentPane().add(rbtnMaximizar);
+		
+		JLabel lblRestricciones = new JLabel("Restricciones:");
+		lblRestricciones.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblRestricciones.setEnabled(false);
+		lblRestricciones.setBounds(140, 88, 109, 31);
+		frame.getContentPane().add(lblRestricciones);
+		
+		txtRestricciones = new JTextField();
+		txtRestricciones.setBounds(139, 113, 86, 20);
+		frame.getContentPane().add(txtRestricciones);
+		txtRestricciones.setColumns(10);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(10, 181, 89, 23);
+		frame.getContentPane().add(btnNewButton);
+		
+		JLabel lblNumeroRestricciones = new JLabel("Ingrese el número de restricciones a capturar:");
+		JTextField txtNumeroRestricciones = new JTextField(10);
+		JButton btnConfirmar = new JButton("Confirmar");
+
+		JLabel lblRestricciones1 = new JLabel("Restricciones a capturar:");
+		JPanel panelRestricciones = new JPanel();
+		panelRestricciones.setLayout(new GridLayout(0, 2)); // Dos columnas para cada restricción
+
+		btnConfirmar.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int numeroRestricciones = Integer.parseInt(txtNumeroRestricciones.getText());
+		        panelRestricciones.removeAll(); // Limpiar el panel para volver a agregar las restricciones
+		        for (int i = 1; i <= numeroRestricciones; i++) {
+		            JLabel lblRestriccion = new JLabel("Restricción #" + i);
+		            JTextField txtRestriccion = new JTextField(10);
+		            panelRestricciones.add(lblRestriccion);
+		            panelRestricciones.add(txtRestriccion);
+		        }
+		        panelRestricciones.revalidate(); // Actualizar el panel
+		    }
+		});
+
+		// Agregar los componentes al contenedor principal
+		container.add(lblNumeroRestricciones);
+		container.add(txtNumeroRestricciones);
+		container.add(btnConfirmar);
+		container.add(lblRestricciones1);
+		container.add(panelRestricciones);
+		
+	}
+}

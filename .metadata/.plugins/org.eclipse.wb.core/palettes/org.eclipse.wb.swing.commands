@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<moveEntry
+		id="system.chooseComponent"
+		category="org.eclipse.wb.swing.system"
+		nextEntry="system.tabOrder"/>
+</commands>

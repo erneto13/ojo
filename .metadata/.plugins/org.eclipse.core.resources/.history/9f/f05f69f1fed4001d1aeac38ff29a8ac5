@@ -1,0 +1,68 @@
+package inv_operaciones;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Window.Type;
+import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JTree;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Font;
+
+public class metodoGrafico {
+
+	private JFrame frmIdoMtodoGrfico;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					metodoGrafico window = new metodoGrafico();
+					window.frmIdoMtodoGrfico.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public metodoGrafico() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmIdoMtodoGrfico = new JFrame();
+		frmIdoMtodoGrfico.setResizable(false);
+		frmIdoMtodoGrfico.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Ernesto Amaral\\Pictures\\a.png"));
+		frmIdoMtodoGrfico.setForeground(new Color(0, 0, 0));
+		frmIdoMtodoGrfico.setTitle("Programación Lineal Método Gráfico");
+		frmIdoMtodoGrfico.setBounds(100, 100, 720, 435);
+		frmIdoMtodoGrfico.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIdoMtodoGrfico.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Método Gráfico");
+		lblNewLabel.setFont(new Font("Calibri Light", Font.BOLD, 23));
+		lblNewLabel.setBounds(10, 11, 178, 29);
+		frmIdoMtodoGrfico.getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Este programa solicita al usuario que objetivo quiere realizar y mostrará el gráfico del objetivo solicitado.");
+		lblNewLabel_1.setBounds(10, 41, 607, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblNewLabel_1);
+	}
+}

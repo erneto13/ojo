@@ -1,0 +1,174 @@
+package com.may.github;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import java.awt.Color;
+import javax.swing.JButton;
+
+public class CifradosSimAsi {
+
+	private JFrame frame;
+	private JTextField txtTextoClaro;
+	private JTextField txtTextoCifrado;
+	private JTextField txtTextoDescifrado;
+	private JTextField txtCapturaK;
+	private JTextField txtCapturaPatron;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CifradosSimAsi window = new CifradosSimAsi();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public CifradosSimAsi() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 347, 469);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Cifrados Siméticos y Asimétricos");
+		lblTitulo.setEnabled(false);
+		lblTitulo.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblTitulo.setBounds(10, 11, 230, 14);
+		frame.getContentPane().add(lblTitulo);
+		
+		JLabel lblDesc = new JLabel("Este programa simula 3 tipos de métodos de cifrados y ");
+		lblDesc.setFont(new Font("Poppins", Font.PLAIN, 11));
+		lblDesc.setBounds(10, 25, 317, 14);
+		frame.getContentPane().add(lblDesc);
+		
+		JLabel lblPasoAPaso = new JLabel("explicará paso a paso para un mejor entendimiento.");
+		lblPasoAPaso.setFont(new Font("Poppins", Font.PLAIN, 11));
+		lblPasoAPaso.setBounds(10, 36, 300, 14);
+		frame.getContentPane().add(lblPasoAPaso);
+		
+		JLabel lblGifEmotiza = new JLabel("");
+		lblGifEmotiza.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Desktop\\skull-rezize.gif"));
+		lblGifEmotiza.setBounds(118, 162, 109, 87);
+		frame.getContentPane().add(lblGifEmotiza);
+		
+		JLabel lblMetodoCifradoTitulo = new JLabel("Método de cifrado:");
+		lblMetodoCifradoTitulo.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblMetodoCifradoTitulo.setBounds(10, 80, 126, 14);
+		frame.getContentPane().add(lblMetodoCifradoTitulo);
+		
+		JComboBox cboxAlgoritmos = new JComboBox();
+		cboxAlgoritmos.setFont(new Font("Poppins", Font.PLAIN, 11));
+		cboxAlgoritmos.setBounds(10, 95, 162, 22);
+		frame.getContentPane().add(cboxAlgoritmos);
+		
+        // Estás son las opciones del ComboBox para los algoritmos
+
+		cboxAlgoritmos.addItem("Cifrado de césar");
+		cboxAlgoritmos.addItem("Cifrado de bloques simple");
+		cboxAlgoritmos.addItem("Algoritmo RSA");
+		
+		JLabel lblTextoEnClaro = new JLabel("Texto en claro:");
+		lblTextoEnClaro.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblTextoEnClaro.setBounds(10, 128, 96, 14);
+		frame.getContentPane().add(lblTextoEnClaro);
+		
+		txtTextoClaro = new JTextField();
+		txtTextoClaro.setBounds(10, 143, 86, 20);
+		frame.getContentPane().add(txtTextoClaro);
+		txtTextoClaro.setColumns(10);
+		
+		JLabel lblTextoCifrado = new JLabel("Texto cifrado:");
+		lblTextoCifrado.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblTextoCifrado.setBounds(10, 164, 96, 14);
+		frame.getContentPane().add(lblTextoCifrado);
+		
+		txtTextoCifrado = new JTextField();
+		txtTextoCifrado.setColumns(10);
+		txtTextoCifrado.setBounds(10, 179, 86, 20);
+		frame.getContentPane().add(txtTextoCifrado);
+		
+		JLabel lblTextoDescifrado = new JLabel("Texto descifrado: ");
+		lblTextoDescifrado.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblTextoDescifrado.setBounds(10, 200, 109, 14);
+		frame.getContentPane().add(lblTextoDescifrado);
+		
+		txtTextoDescifrado = new JTextField();
+		txtTextoDescifrado.setColumns(10);
+		txtTextoDescifrado.setBounds(10, 216, 86, 20);
+		frame.getContentPane().add(txtTextoDescifrado);
+		
+		JLabel lblMtodo = new JLabel("Método:");
+		lblMtodo.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblMtodo.setBounds(10, 260, 62, 14);
+		frame.getContentPane().add(lblMtodo);
+		
+		JPanel panelMetodo = new JPanel();
+		panelMetodo.setBackground(Color.LIGHT_GRAY);
+		panelMetodo.setBounds(10, 285, 317, 134);
+		frame.getContentPane().add(panelMetodo);
+		
+		JLabel lblK = new JLabel("k:");
+		lblK.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblK.setBounds(182, 99, 18, 14);
+		frame.getContentPane().add(lblK);
+		
+		txtCapturaK = new JTextField();
+		txtCapturaK.setColumns(10);
+		txtCapturaK.setBounds(192, 96, 86, 20);
+		frame.getContentPane().add(txtCapturaK);
+		
+		JLabel lblPatron = new JLabel("Patrón: ");
+		lblPatron.setFont(new Font("Poppins", Font.PLAIN, 12));
+		lblPatron.setBounds(182, 123, 45, 14);
+		frame.getContentPane().add(lblPatron);
+		
+		txtCapturaPatron = new JTextField();
+		txtCapturaPatron.setColumns(10);
+		txtCapturaPatron.setBounds(224, 120, 86, 20);
+		frame.getContentPane().add(txtCapturaPatron);
+		
+		JButton btnVerTabla = new JButton("Ver tabla");
+		btnVerTabla.setFont(new Font("Poppins", Font.PLAIN, 12));
+		btnVerTabla.setBounds(235, 176, 89, 23);
+		frame.getContentPane().add(btnVerTabla);
+		
+		JButton btnCifrar = new JButton("Cifrar");
+		btnCifrar.setFont(new Font("Poppins", Font.PLAIN, 12));
+		btnCifrar.setBounds(235, 201, 89, 23);
+		frame.getContentPane().add(btnCifrar);
+		
+		JButton btnDescrifrar = new JButton("Descrifrar");
+		btnDescrifrar.setFont(new Font("Poppins", Font.PLAIN, 12));
+		btnDescrifrar.setBounds(235, 226, 89, 23);
+		frame.getContentPane().add(btnDescrifrar);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setFont(new Font("Poppins", Font.PLAIN, 12));
+		btnLimpiar.setBounds(235, 251, 89, 23);
+		frame.getContentPane().add(btnLimpiar);
+        
+	}
+}

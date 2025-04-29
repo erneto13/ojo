@@ -1,0 +1,124 @@
+package redes;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+
+public class AppSubneteo extends JFrame {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+    private JTextField txtDireccionIP;
+    private JLabel lblDireccionIP;
+    private JLabel lblClaseIP;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    AppSubneteo frame = new AppSubneteo();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public AppSubneteo() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblIngresarIP = new JLabel("Ingrese la dirección IP:");
+        lblIngresarIP.setFont(new Font("Poppins", Font.PLAIN, 12));
+        lblIngresarIP.setBounds(10, 27, 143, 14);
+        contentPane.add(lblIngresarIP);
+
+        txtDireccionIP = new JTextField();
+        txtDireccionIP.setBounds(145, 24, 155, 20);
+        contentPane.add(txtDireccionIP);
+        txtDireccionIP.setColumns(10);
+
+        JButton btnDeclararClase = new JButton("");
+        btnDeclararClase.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Downloads\\360_F_305431718_eh07vqK6LRIjxixuTxATG5PFCQmGwNwQ (1).jpg.crdownload"));
+        btnDeclararClase.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+				//Esta acción limpia todos los campos que se ocuparon
+				String comprobarCadenaVacia = txtDireccionIP.getText(); 
+				
+					if (comprobarCadenaVacia.isEmpty()) { //comprobar si el texto está vacío
+						JOptionPane.showMessageDialog(null, "No se pudo completar la acción. Necesita rellenar el campo de la dirección IP.", "", JOptionPane.ERROR_MESSAGE); // muestra un mensaje de error
+					} else {
+            	
+            	
+                // Obtener la dirección IP ingresada por el usuario
+                String direccionIP = txtDireccionIP.getText();
+
+                // Mostrar la dirección IP en el JLabel correspondiente
+                lblDireccionIP.setText("Dirección IP: " + direccionIP);
+
+                // Detectar la clase de la dirección IP
+                String claseIP = detectarClaseIP(direccionIP);
+
+                // Mostrar la clase de la dirección IP en el JLabel correspondiente
+                lblClaseIP.setText("Clase de IP: " + claseIP);
+            }
+           }
+        });
+        btnDeclararClase.setBounds(308, 24, 16, 16);
+        contentPane.add(btnDeclararClase);
+
+        lblDireccionIP = new JLabel("Dirección IP: ");
+        lblDireccionIP.setFont(new Font("Poppins", Font.PLAIN, 11));
+        lblDireccionIP.setBounds(20, 52, 133, 14);
+        contentPane.add(lblDireccionIP);
+
+        lblClaseIP = new JLabel("Clase de IP: ");
+        lblClaseIP.setFont(new Font("Poppins", Font.PLAIN, 11));
+        lblClaseIP.setBounds(20, 77, 133, 14);
+        contentPane.add(lblClaseIP);
+    }
+
+    /**
+     * Detecta la clase de una dirección IP dada.
+     */
+    private String detectarClaseIP(String direccionIP) {
+        String[] octetos = direccionIP.split("\\."); // dividimos la dirección IP en sus octetos
+
+        int primerOcteto =
+        		
+        	    Integer.parseInt(octetos[0]); // obtenemos el primer octeto como un entero
+
+        if (primerOcteto >= 1 && primerOcteto <= 126) {
+            return "Clase A";
+        } else if (primerOcteto >= 128 && primerOcteto <= 191) {
+            return "Clase B";
+        } else if (primerOcteto >= 192 && primerOcteto <= 223) {
+            return "Clase C";
+        } else if (primerOcteto >= 224 && primerOcteto <= 239) {
+            return "Clase D";
+        } else if (primerOcteto >= 240 && primerOcteto <= 255) {
+            return "Clase E";
+        } else {
+            return "Dirección IP no válida";
+        }
+    }
+}

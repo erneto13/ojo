@@ -1,0 +1,65 @@
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class MetodoGrafico2 extends JFrame {
+    private JLabel lblNumeroRestricciones;
+    private JTextField txtNumeroRestricciones;
+    private JButton btnConfirmar;
+    private JLabel lblRestricciones;
+    private JPanel panelRestricciones;
+
+    public MetodoGrafico2() {
+        super("Captura de restricciones");
+        initComponents();
+    }
+
+    private void initComponents() {
+        Container container = getContentPane();
+        container.setLayout(new GridLayout(0, 1));
+
+        lblNumeroRestricciones = new JLabel("Ingrese el número de restricciones a capturar:");
+        txtNumeroRestricciones = new JTextField(10);
+        btnConfirmar = new JButton("Confirmar");
+
+        lblRestricciones = new JLabel("Restricciones a capturar:");
+        panelRestricciones = new JPanel();
+        panelRestricciones.setLayout(new GridLayout(0, 2));
+
+        btnConfirmar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int numeroRestricciones = Integer.parseInt(txtNumeroRestricciones.getText());
+                panelRestricciones.removeAll();
+                for (int i = 1; i <= numeroRestricciones; i++) {
+                    JLabel lblRestriccion = new JLabel("Restricción #" + i);
+                    JTextField txtRestriccion = new JTextField(10);
+                    panelRestricciones.add(lblRestriccion);
+                    panelRestricciones.add(txtRestriccion);
+                }
+                panelRestricciones.revalidate();
+            }
+        });
+
+        container.add(lblNumeroRestricciones);
+        container.add(txtNumeroRestricciones);
+        container.add(btnConfirmar);
+        container.add(lblRestricciones);
+        container.add(panelRestricciones);
+
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new MetodoGrafico2();
+    }
+}

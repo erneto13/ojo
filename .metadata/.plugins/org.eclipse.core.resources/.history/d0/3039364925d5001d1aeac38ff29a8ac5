@@ -1,0 +1,429 @@
+package inv_operaciones;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Window.Type;
+import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JTree;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class metodoGrafico {
+
+	private JFrame frmIdoMtodoGrfico;
+	private JTextField etxtX;
+	private JTextField etxtY;
+	private JTextField etxtRX1;
+	private JTextField etxtRX2;
+	private JTextField etxtRX3;
+	private JTextField etxtRY1;
+	private JTextField etxtRY2;
+	private JTextField etxtRY3;
+	private JTextField etxtResRes1;
+	private JTextField etxtResRes2;
+	private JTextField etxtResRes3;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					metodoGrafico window = new metodoGrafico();
+					window.frmIdoMtodoGrfico.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public metodoGrafico() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmIdoMtodoGrfico = new JFrame();
+		frmIdoMtodoGrfico.setResizable(false);
+		frmIdoMtodoGrfico.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Ernesto Amaral\\Pictures\\a.png"));
+		frmIdoMtodoGrfico.setForeground(new Color(0, 0, 0));
+		frmIdoMtodoGrfico.setTitle("Programación Lineal Método Gráfico");
+		frmIdoMtodoGrfico.setBounds(100, 100, 433, 651);
+		frmIdoMtodoGrfico.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIdoMtodoGrfico.getContentPane().setLayout(null);
+		
+		JLabel desc1 = new JLabel("Este programa solicita al usuario que objetivo ");
+		desc1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		desc1.setBounds(10, 33, 342, 31);
+		frmIdoMtodoGrfico.getContentPane().add(desc1);
+		
+		JLabel desc2 = new JLabel("quiere realizar y mostrará el gráfico del objetivo solicitado.");
+		desc2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		desc2.setBounds(10, 58, 424, 14);
+		frmIdoMtodoGrfico.getContentPane().add(desc2);
+		
+		JLabel img = new JLabel("");
+		img.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Downloads\\Diseño_sin_título-removebg-preview (1).png"));
+		img.setBounds(10, 15, 65, 29);
+		frmIdoMtodoGrfico.getContentPane().add(img);
+		
+		JPanel br = new JPanel();
+		br.setBackground(Color.LIGHT_GRAY);
+		br.setBounds(0, 80, 417, 2);
+		frmIdoMtodoGrfico.getContentPane().add(br);
+		
+		JLabel txtObjetivo = new JLabel("Objetivo:");
+		txtObjetivo.setEnabled(false);
+		txtObjetivo.setFont(new Font("Poppins", Font.PLAIN, 14));
+		txtObjetivo.setBounds(10, 93, 109, 31);
+		frmIdoMtodoGrfico.getContentPane().add(txtObjetivo);
+		
+		JRadioButton rbtnMinimizar = new JRadioButton("Minimizar");
+		rbtnMinimizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMinimizar.setBounds(10, 117, 109, 23);
+		frmIdoMtodoGrfico.getContentPane().add(rbtnMinimizar);
+		
+		JRadioButton rbtnMaximizar = new JRadioButton("Maximizar");
+		rbtnMaximizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMaximizar.setBounds(10, 143, 109, 23);
+		frmIdoMtodoGrfico.getContentPane().add(rbtnMaximizar);
+		
+		// Agrega los botones de opción a un ButtonGroup
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(rbtnMinimizar);
+		buttonGroup.add(rbtnMaximizar);
+		
+		JLabel txtFuncObj = new JLabel("Función objetivo: ");
+		txtFuncObj.setFont(new Font("Poppins", Font.PLAIN, 14));
+		txtFuncObj.setEnabled(false);
+		txtFuncObj.setBounds(10, 167, 134, 31);
+		frmIdoMtodoGrfico.getContentPane().add(txtFuncObj);
+		
+		etxtX = new JTextField();
+		etxtX.setBounds(10, 196, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtX);
+		etxtX.setColumns(10);
+		
+		JLabel lblX = new JLabel("x +");
+		lblX.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblX.setBounds(60, 192, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(lblX);
+		
+		etxtY = new JTextField();
+		etxtY.setColumns(10);
+		etxtY.setBounds(85, 196, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtY);
+		
+		JLabel txtRestricciones = new JLabel("Restricciones:");
+		txtRestricciones.setFont(new Font("Poppins", Font.PLAIN, 14));
+		txtRestricciones.setEnabled(false);
+		txtRestricciones.setBounds(10, 223, 134, 31);
+		frmIdoMtodoGrfico.getContentPane().add(txtRestricciones);
+		
+		etxtRX1 = new JTextField();
+		etxtRX1.setColumns(10);
+		etxtRX1.setBounds(10, 253, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRX1);
+		
+		JLabel lblY = new JLabel("y");
+		lblY.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblY.setBounds(135, 192, 19, 29);
+		frmIdoMtodoGrfico.getContentPane().add(lblY);
+		
+		etxtRX2 = new JTextField();
+		etxtRX2.setColumns(10);
+		etxtRX2.setBounds(10, 284, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRX2);
+		
+		etxtRX3 = new JTextField();
+		etxtRX3.setColumns(10);
+		etxtRX3.setBounds(10, 315, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRX3);
+		
+		etxtRY1 = new JTextField();
+		etxtRY1.setColumns(10);
+		etxtRY1.setBounds(85, 253, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRY1);
+		
+		etxtRY2 = new JTextField();
+		etxtRY2.setColumns(10);
+		etxtRY2.setBounds(85, 284, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRY2);
+		
+		etxtRY3 = new JTextField();
+		etxtRY3.setColumns(10);
+		etxtRY3.setBounds(85, 315, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtRY3);
+		
+		JLabel xmas1 = new JLabel("x +");
+		xmas1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		xmas1.setBounds(60, 249, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(xmas1);
+		
+		JLabel xmas2 = new JLabel("x +");
+		xmas2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		xmas2.setBounds(60, 280, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(xmas2);
+		
+		JLabel xmas3 = new JLabel("x +");
+		xmas3.setFont(new Font("Poppins", Font.PLAIN, 14));
+		xmas3.setBounds(60, 311, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(xmas3);
+		
+		JLabel yequal1 = new JLabel("y =");
+		yequal1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		yequal1.setBounds(135, 249, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(yequal1);
+		
+		JLabel yequal2 = new JLabel("y =");
+		yequal2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		yequal2.setBounds(135, 280, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(yequal2);
+		
+		JLabel yequal3 = new JLabel("y =");
+		yequal3.setFont(new Font("Poppins", Font.PLAIN, 14));
+		yequal3.setBounds(135, 311, 31, 29);
+		frmIdoMtodoGrfico.getContentPane().add(yequal3);
+		
+		etxtResRes1 = new JTextField();
+		etxtResRes1.setColumns(10);
+		etxtResRes1.setBounds(164, 253, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtResRes1);
+		
+		etxtResRes2 = new JTextField();
+		etxtResRes2.setColumns(10);
+		etxtResRes2.setBounds(164, 284, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtResRes2);
+		
+		etxtResRes3 = new JTextField();
+		etxtResRes3.setColumns(10);
+		etxtResRes3.setBounds(164, 315, 45, 20);
+		frmIdoMtodoGrfico.getContentPane().add(etxtResRes3);
+		
+		JButton btnLimpiar = new JButton("");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Esta acción limpia todos los campos que se ocuparon
+				String vtxt = etxtX.getText(); 
+				
+					if (vtxt.isEmpty()) { //comprobar si el texto está vacío
+						JOptionPane.showMessageDialog(null, "No hay nada para limpiar", "Atención", JOptionPane.WARNING_MESSAGE); //mostrar mensaje de Nerror
+					} else {
+							etxtX.setText(null);
+								etxtY.setText(null);
+									etxtRX1.setText(null);
+										etxtRX2.setText(null);
+											etxtRX3.setText(null);
+											etxtRY1.setText(null);
+												etxtRY2.setText(null);
+													etxtRY3.setText(null);
+													etxtResRes1.setText(null);
+														etxtResRes2.setText(null);
+															etxtResRes3.setText(null);
+			}
+		}
+		});
+		btnLimpiar.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Downloads\\x-button (1).png"));
+		btnLimpiar.setFont(new Font("Poppins", Font.PLAIN, 14));
+		btnLimpiar.setBounds(186, 362, 25, 23);
+		frmIdoMtodoGrfico.getContentPane().add(btnLimpiar);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBounds(228, 83, 2, 311);
+		frmIdoMtodoGrfico.getContentPane().add(panel);
+		
+		JLabel lblProblemaPlanteado = new JLabel("Problema Planteado");
+		lblProblemaPlanteado.setFont(new Font("Poppins", Font.BOLD, 14));
+		lblProblemaPlanteado.setEnabled(false);
+		lblProblemaPlanteado.setBounds(240, 83, 157, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblProblemaPlanteado);
+		
+		final JLabel lblRestriccion1 = new JLabel("...");
+		lblRestriccion1.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblRestriccion1.setBounds(253, 135, 134, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion1);
+		
+		final JLabel lblRestriccion2 = new JLabel("...");
+		lblRestriccion2.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblRestriccion2.setBounds(253, 165, 134, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion2);
+		
+		final JLabel lblRestriccion3 = new JLabel("...");
+		lblRestriccion3.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblRestriccion3.setBounds(253, 195, 134, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion3);
+		
+		JLabel lblRestriccionesPlan = new JLabel("Sujeto a:");
+		lblRestriccionesPlan.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblRestriccionesPlan.setEnabled(false);
+		lblRestriccionesPlan.setBounds(240, 101, 70, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccionesPlan);
+		
+		JLabel lblFuncinObjetivo = new JLabel("Función objetivo:");
+		lblFuncinObjetivo.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblFuncinObjetivo.setEnabled(false);
+		lblFuncinObjetivo.setBounds(240, 242, 194, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblFuncinObjetivo);
+		
+		final JLabel lblFuncObje = new JLabel("...");
+		lblFuncObje.setFont(new Font("Poppins", Font.PLAIN, 13));
+		lblFuncObje.setBounds(253, 275, 134, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblFuncObje);
+		
+		
+		// Acciones del boton para calcular las función objetivo y las restricciones
+		JButton btnGraficar = new JButton("Generar problema");
+		btnGraficar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Primera restricción
+				String xRes1 = etxtRX1.getText();
+				String yRes1 = etxtRY1.getText();
+				String resR1 = etxtResRes1.getText();
+				String restriccion1 = xRes1 + "x + " + yRes1 + "y ≤ " + resR1;
+				
+				// segunda restricción
+				String xRes2 = etxtRX2.getText();
+				String yRes2 = etxtRY2.getText();
+				String resR2 = etxtResRes2.getText();
+				String restriccion2 = xRes2 + "x + " + yRes2 + "y ≤ " + resR2;
+				
+				// tercera restricción
+				String xRes3 = etxtRX3.getText();
+				String yRes3 = etxtRY3.getText();
+				String resR3 = etxtResRes3.getText();
+				String restriccion3 = xRes3 + "x + " + yRes3 + " y ≤ " + resR3;
+				
+				// Función objetivo
+				String xFuncObj = etxtX.getText();
+				String yFuncObj = etxtY.getText();
+				String funcionObjetivo = "Z = " + xFuncObj + "x + " + yFuncObj + "y";
+				
+				// Concatenamos las restricciones
+				lblRestriccion1.setText(restriccion1);
+				lblRestriccion2.setText(restriccion2);
+				lblRestriccion3.setText(restriccion3);
+				
+				// Concatenamos la función objetivo
+				lblFuncObje.setText(funcionObjetivo);
+			}
+		});
+		btnGraficar.setFont(new Font("Poppins", Font.PLAIN, 14));
+		btnGraficar.setBounds(10, 362, 166, 23);
+		frmIdoMtodoGrfico.getContentPane().add(btnGraficar);
+		
+		JLabel lblXY = new JLabel("x, y");
+		lblXY.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblXY.setEnabled(false);
+		lblXY.setBounds(240, 210, 38, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblXY);
+		
+		JLabel lblXY_1 = new JLabel("0");
+		lblXY_1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblXY_1.setEnabled(false);
+		lblXY_1.setBounds(283, 210, 38, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblXY_1);
+		
+		JLabel lblRestriccion1_1 = new JLabel("1.");
+		lblRestriccion1_1.setFont(new Font("Poppins", Font.BOLD, 13));
+		lblRestriccion1_1.setBounds(240, 127, 11, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion1_1);
+		
+		JLabel lblRestriccion1_1_1 = new JLabel("2.");
+		lblRestriccion1_1_1.setFont(new Font("Poppins", Font.BOLD, 13));
+		lblRestriccion1_1_1.setBounds(240, 157, 11, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion1_1_1);
+		
+		JLabel lblRestriccion1_1_1_1 = new JLabel("3.");
+		lblRestriccion1_1_1_1.setFont(new Font("Poppins", Font.BOLD, 13));
+		lblRestriccion1_1_1_1.setBounds(240, 187, 23, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccion1_1_1_1);
+		
+		JPanel br_1 = new JPanel();
+		br_1.setBackground(Color.LIGHT_GRAY);
+		br_1.setBounds(0, 396, 417, 2);
+		frmIdoMtodoGrfico.getContentPane().add(br_1);
+		
+		JLabel lblRestriccionesParaEl = new JLabel("Restricciones para el gráfico");
+		lblRestriccionesParaEl.setFont(new Font("Poppins", Font.BOLD, 14));
+		lblRestriccionesParaEl.setEnabled(false);
+		lblRestriccionesParaEl.setBounds(10, 408, 225, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblRestriccionesParaEl);
+		
+		JLabel lblParaLaPrimera = new JLabel("Para la primera restricción");
+		lblParaLaPrimera.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblParaLaPrimera.setEnabled(false);
+		lblParaLaPrimera.setBounds(15, 439, 194, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblParaLaPrimera);
+		
+		JLabel lblX_1 = new JLabel("x = 0");
+		lblX_1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblX_1.setEnabled(false);
+		lblX_1.setBounds(15, 468, 45, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblX_1);
+		
+		final JLabel txtYRestriccion = new JLabel("y = ");
+		txtYRestriccion.setFont(new Font("Poppins", Font.PLAIN, 14));
+		txtYRestriccion.setBounds(15, 490, 45, 31);
+		frmIdoMtodoGrfico.getContentPane().add(txtYRestriccion);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(60, 474, 2, 47);
+		frmIdoMtodoGrfico.getContentPane().add(panel_1);
+		
+		JLabel lblX_1_2 = new JLabel("y = 0");
+		lblX_1_2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblX_1_2.setEnabled(false);
+		lblX_1_2.setBounds(74, 468, 45, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblX_1_2);
+		
+		JLabel txtXRestriccion = new JLabel("x = ");
+		txtXRestriccion.setFont(new Font("Poppins", Font.PLAIN, 14));
+		txtXRestriccion.setBounds(74, 490, 45, 31);
+		frmIdoMtodoGrfico.getContentPane().add(txtXRestriccion);
+		
+		JLabel lblParaLaSegunda = new JLabel("Para la segunda restricción");
+		lblParaLaSegunda.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblParaLaSegunda.setEnabled(false);
+		lblParaLaSegunda.setBounds(15, 532, 194, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblParaLaSegunda);
+		
+		// Evento para generar las restricciones que se usarán dentro del grafico
+		JButton btnCalcularRestricciones = new JButton("Restricciones");
+		btnCalcularRestricciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// Defino las variables que usaré dentro de esta bloque
+				Integer yDeLaRestriccion1 = Integer.parseInt(etxtRY1.getText());
+				Integer resultadoDeLaRestriccion1 = Integer.parseInt(etxtResRes1.getText());
+				Integer restriccionDeY1 = resultadoDeLaRestriccion1 / yDeLaRestriccion1;
+				
+				txtYRestriccion.setText(Integer.toString(restriccionDeY1));
+				
+			}
+		});
+		btnCalcularRestricciones.setFont(new Font("Poppins", Font.PLAIN, 14));
+		btnCalcularRestricciones.setBounds(240, 362, 166, 23);
+		frmIdoMtodoGrfico.getContentPane().add(btnCalcularRestricciones);
+	}
+}

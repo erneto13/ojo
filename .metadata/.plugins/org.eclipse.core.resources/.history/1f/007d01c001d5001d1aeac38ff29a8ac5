@@ -1,0 +1,102 @@
+package inv_operaciones;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Window.Type;
+import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JTree;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+
+public class metodoGrafico {
+
+	private JFrame frmIdoMtodoGrfico;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					metodoGrafico window = new metodoGrafico();
+					window.frmIdoMtodoGrfico.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public metodoGrafico() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmIdoMtodoGrfico = new JFrame();
+		frmIdoMtodoGrfico.setResizable(false);
+		frmIdoMtodoGrfico.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Ernesto Amaral\\Pictures\\a.png"));
+		frmIdoMtodoGrfico.setForeground(new Color(0, 0, 0));
+		frmIdoMtodoGrfico.setTitle("Programación Lineal Método Gráfico");
+		frmIdoMtodoGrfico.setBounds(100, 100, 720, 435);
+		frmIdoMtodoGrfico.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIdoMtodoGrfico.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Este programa solicita al usuario que objetivo ");
+		lblNewLabel_1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(10, 33, 342, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("quiere realizar y mostrará el gráfico del objetivo solicitado.");
+		lblNewLabel_2.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(10, 58, 424, 14);
+		frmIdoMtodoGrfico.getContentPane().add(lblNewLabel_2);
+		
+		JLabel img = new JLabel("");
+		img.setIcon(new ImageIcon("C:\\Users\\Ernesto Amaral\\Downloads\\Diseño_sin_título-removebg-preview (1).png"));
+		img.setBounds(10, 15, 65, 29);
+		frmIdoMtodoGrfico.getContentPane().add(img);
+		
+		JPanel br = new JPanel();
+		br.setBackground(Color.LIGHT_GRAY);
+		br.setBounds(0, 80, 704, 2);
+		frmIdoMtodoGrfico.getContentPane().add(br);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Objetivo:");
+		lblNewLabel_1_1.setEnabled(false);
+		lblNewLabel_1_1.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(10, 93, 109, 31);
+		frmIdoMtodoGrfico.getContentPane().add(lblNewLabel_1_1);
+		
+		JRadioButton rbtnMinimizar = new JRadioButton("Minimizar");
+		rbtnMinimizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMinimizar.setBounds(10, 117, 109, 23);
+		frmIdoMtodoGrfico.getContentPane().add(rbtnMinimizar);
+		
+		JRadioButton rbtnMaximizar = new JRadioButton("Maximizar");
+		rbtnMaximizar.setFont(new Font("Poppins", Font.PLAIN, 13));
+		rbtnMaximizar.setBounds(10, 143, 109, 23);
+		frmIdoMtodoGrfico.getContentPane().add(rbtnMaximizar);
+		
+		// Agrega los botones de opción a un ButtonGroup
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(rbtnMinimizar);
+		buttonGroup.add(rbtnMaximizar);
+	}
+}
